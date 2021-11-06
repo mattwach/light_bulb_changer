@@ -1,0 +1,11 @@
+On my linux machine, the upload command is:
+
+/usr/bin/avrdude \
+  -C./avrdude.conf \
+  -v \
+  -pattiny85 \
+  -cstk500v1 \
+  -P \
+  -b19200 \
+  -Uflash:w:light_bulb_changer.hex:i
+
