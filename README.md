@@ -106,7 +106,7 @@ you control the motor:
    2. **A Breadboard** if you want to verify operation before committing the parts with
       solder.
 
-## Step 2: Electronics Build
+## Step 2: Electronics Overview
 
 The ordering is not strict here but I like getting the electronics working
 first.  A breadboard is a  good way to wire things up and get the assurance
@@ -134,10 +134,122 @@ So how does this thing work?
 You can probably imagine the rest - adapter on motor, light bulb changer on
 adapter and light.  Turning, problems being solved, happy time.
 
-First, you will need to program the ATTiny85.  There are many tutorial online and
-several methods.
-
 ![Breadboard](images/breadboard.jpg)
+
+## Step 3: ATTiny85 Programming and Testing
+
+The code is located in the `firmware/` directory.  This code is not Arduino so
+you will need to have/develop familiarity with `avr-gcc` to compile it.  But,
+you don't have to compile it because there is an already-compiled
+`firmware/prebuilt/light_bulb_changer.hex` file ready to go.
+
+Loading code onto the ATTiny85 involves conforming to the protocol speficied in
+its
+[datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-2586-AVR-8-bit-Microcontroller-ATtiny25-ATtiny45-ATtiny85_Datasheet.pdf).
+There are several possible soltions and a large amount of websites and youtube
+videos that cover the topic.
+
+   _Note: The microcontroller world has the concept of a "bootloader" where a
+   separate USB-serial converter chip feeds serial data to persistant firmware
+   on the microcontroller, which then programs the chip.  This bootloading
+   method is used with the Arduino Uno, Nano and many other "microcontroller
+   on a PCB".  We are not using this setup with the ATTiny85 and
+   are instead using the "low level" programming protocol._
+
+A sampling of options include:
+
+   1. The official AVR programming tools
+   2. [Using an arduino Uno (or nano) *as a programmer*](https://create.arduino.cc/projecthub/arjun/programming-attiny85-with-arduino-uno-afb829)
+   3. [Using the sparkfun ATTiny85 programmer](https://learn.sparkfun.com/tutorials/tiny-avr-programmer-hookup-guide/all)
+
+I personally went with a variation of option #2, using an arduino Nano and a [test clip](https://www.amazon.com/Pomona-Electronics-5250-Plated-Spacing/dp/B00JJ4G13I):
+
+![Test Clip](images/test_clip.jpg)
+
+The guides I listed above assume that you want to use the Arduino framewark to
+write code for the ATTiny85.  Maybe you do, but Arduino is not used here.
+Still it's convienent to follow the steps because as a part of the exercise,
+you'll end up with a copy of the
+[avrdude](https://www.nongnu.org/avrdude/) code uploading tool as well as
+examples of how to use it.
+
+When you run the "blinking light" example of one of the guides above, the
+arduino console will output the avrdude command it used.  This can be compared
+to the one I used (which is also in `firmware/prebuilt/README`):
+
+    # in the firmware/prebuilt directory:
+
+    /usr/bin/avrdude \
+      -C./avrdude.conf \
+      -v \
+      -pattiny85 \
+      -cstk500v1 \
+      -P /dev/ttyUSB0 \
+      -b19200 \
+      -Uflash:w:light_bulb_changer.hex:i
+
+Depending on the programming tools you have and the OS you
+are using, some flags will be different and you'll want to combine the
+flags from the blinking light example with the `-Uflash:w:light_bulb_changer.hex:i`
+option above.
+
+Ok, now that we are through all of that, I suggest a simple verification on the
+breadboard.  We will wire up a simplified version of the schematic as shown:
+
+![Simplfied Grounded Breadboard](images/simplified_grounded.jpg)
+
+This follows the original schematic but with the motor enable (pin 1 of the
+    L293D) replaced with a white LED and the potentiometer replaced with a
+resistor pulldown to ground.  Specifically:
+
+   * Pin 1 (Reset) Not Connected
+   * Pin 2 (Pot input) -> Resistor -> Ground
+   * Pin 3 Not Connected
+   * Pin 4 (GND) -> Ground
+   * Pin 5 (PWM) -> Resistor -> White LED -> Ground
+   * Pin 6 (Forward) -> Resistor -> Greed LED -> Ground
+   * Pin 7 (Reverse) -> Resistor -> Red LED -> Ground
+   * Pin 8 (5V) -> Some voltage between 2V-5.5V
+
+What resistor values?  Anything in the 400-5K range is fine for the LEDs.
+Anything at all is fine for Pin 2.  And use any colors you want for the
+LEDs.
+
+What we should see is the green and white LEDs lit up.  The firmare thinks that
+the motor is in full-power forward mode because we have Pin 2 grounded.
+
+Now lets, make one change.  Instead of grounding Pin 2, connect it to power:
+
+![Simplfied VCC Breadboard](images/simplified_vcc.jpg)
+
+Now the firmware thinks it need to drive the motor full power in reverse.
+
+You could call the testing "done" at this point, but I'm going to take it a
+little further for educational purposes.  Here I connected a real potentiometer
+to pin 2 (I didn't go with the PS2 thumstick just yet because I wanted to
+    potentiometer to stay at a certain value for the test).  I also added
+an oscilliscope probe to pin 5:
+
+![Breadboard with Potentiometer](images/breadboard_with_pot.jpg)
+
+Now the potentiometer can be used to change between forward and reverse, just
+like the final product.  It's also possible to see the white LED getting
+darker and brighter but this is more obvious from the oscilliscope.  Here
+is a scope image at "low power", where the motor will turn more slowly.  Note
+how the signal spends most of it's time at 0V:
+
+![Oscilliscope Low Power](images/oscilliscope_low_power.jpg)
+
+Here, the potentiometer is turned further to the left (or right since there
+is both a forward and reverse).  More time at 5V means more motor speed:
+
+![Oscilliscope Low Power](images/oscilliscope_high_power.jpg)
+
+and finally, the highest power setting shows the signal at 5V the whole time:
+
+![Oscilliscope Low Power](images/oscilliscope_full_power.jpg)
+
+## Step 4: Building the PCB
 
 
  

@@ -5,7 +5,7 @@ On my linux machine, the upload command is:
   -v \
   -pattiny85 \
   -cstk500v1 \
-  -P \
+  -P /dev/ttyUSB0 \
   -b19200 \
   -Uflash:w:light_bulb_changer.hex:i
 
