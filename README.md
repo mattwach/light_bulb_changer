@@ -251,5 +251,17 @@ and finally, the highest power setting shows the signal at 5V the whole time:
 
 ## Step 4: Building the PCB
 
+Repeating the schematic:
+
+![Schematic](images/schematic.png)
+
+Here is a board layout that represent my own strategy for building the PCB:
+
+![Board Layout](images/board_layout.png)
+
+Actual built-up part:
+
+![Board Top](images/wiring_top.jpg)
+
 
  
