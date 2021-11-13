@@ -563,5 +563,6 @@ module control_box_assembly() {
 
 }
 
-$fn = 36;
+$fa = 2.0;
+$fs = 0.5;
 control_box_assembly();

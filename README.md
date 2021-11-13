@@ -263,5 +263,57 @@ Actual built-up part:
 
 ![Board Top](images/wiring_top.jpg)
 
-
+Of course, you can build the board any way you want.  Just keep in mind that if
+you choose to use the 3D printed control box it is sized to house a
+PCB that is 30mm x 51mm.  This size could (techincally) be changed in the
+`3d_print/motor_controller_pcb.scad` file by someone who is willing to do some
+OpenSCAD work.  For everyone else, I suggest keeping that size limit in mind.
  
+## Step 5: 3D Print Control Box and Motor Carriage
+
+Let's assume for this step that you are going to print these parts.
+
+There are two diretories of interest.  One is the `openscad/` directory.  If
+you just want the parts, you can ignore this directory.  If you want to
+customize the parts, you'll need the (free) openscad software.  The main
+files of interest are `openscad/control_box_assembly.scad` and
+`openscad/motor_assembly.scad`.  Scroll to the bottom of each file
+and note the comments.
+
+There is also an `stl/` directory that contains already-rendered parts.
+Here is a inventory of each part:
+
+Starting with the control box, we have a threaded interface to the light
+bulb removal tool (`threaded_attachment.stl`):
+
+![Threaded Attachment](images/threaded_attachment.png)
+
+Next, the carriage for the motor (`motor_carriage.stl`):
+
+![Motor Carriage](images/motor_carriage.png)
+
+And a cover for the motor carriage (`motor_carriage_cover.stl`):
+
+![Motor Carriage](images/motor_carriage_cover.png)
+
+And finally an interface between the motor carriage and pole (`pole_interface.stl`) 
+
+![Pole Interface](images/pole_interface.png)
+
+Onto the control box.  This consists ot three components held together by 16mm
+M3 bolts.  First the pole interface, which is intended to be held on with
+zip ties:
+
+![Control Box Pole Interface](images/control_box_pole_interface.png)
+
+Next, the middle section, which holds all of the electronics:
+
+![Control Box Pole Interface](images/control_box_bottom.png)
+
+And finally the top cover:
+
+![Control Box Top](images/control_box_top.png)
+
+Here is everything assembled:
+
+![All Parts](images/all_parts.png)

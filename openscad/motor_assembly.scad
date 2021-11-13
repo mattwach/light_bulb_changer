@@ -45,5 +45,6 @@ module motor_assembly() {
   threaded_attachment_assembled();
 }
 
-$fn = 36;
+$fa = 2.0;
+$fs = 0.5;
 motor_assembly();
