@@ -3,7 +3,7 @@
 _Note: I also made a [video describing the project](https://youtu.be/A-EdzPTZSjM)._
 
 Do you have hard-to-reach light bulbs?  If so, then you are perhaps familiar
-with this device:
+with this device known as a _Light Bulb Changer_:
 
 ![Light bulb changer](images/light_bulb_changer.jpg)
 
@@ -20,10 +20,9 @@ used this as an excuse for another maker project.
 
 I spent way more time on this than the ladder would have taken.  Then again, it
 was quite a bit of fun and now I have a useful tool on-hand ready to square off
-against the next light bulb challenge.  Lucky for you, you can build one of
-these things in a fraction of the time it took me because all of the design,
-modeling, and testing steps are done and you can just use them.  Heck, I
-even include a walkthrough below.
+against the next light bulb challenge.  Lucky for you, all of the design,
+modeling, and testing steps are done so you can build one in a fraction of the time.
+Heck, I even include a walkthrough below.
 
 Of course if you want extra challenge, feel free to mod up the design below to
 match your favorite parts and techniques.  Have it play inspirational music, add
@@ -36,66 +35,57 @@ school.
 
 ## Step 1: Parts
 
-Here is what we are building:
+Here is what I built:
 
 ![All of the parts](images/all_parts.jpg)
 
 The middle unit is a motorized driver that the light bulb changer screws onto.
 It then screws on a pole.  Now you have both a motor and a way to change the
-angle.
-
-![Motorized Driver](images/motorized_driver.jpg)
- 
-There is also a control box that goes on the other end of the pole.  This is how
-you control the motor:
-
-![Control Box](images/control_box.jpg)
+angle.  There is also a control box that goes on the other end of the pole.
 
 ### Parts I used include:
 
-   1. **A [geared brushed motor](https://www.amazon.com/gp/product/B0728HDH45)**.  These
-      are around $6 on Amazon, probably cheaper other places.  I went with 200
+   1. **[Geared brushed motor](https://www.amazon.com/gp/product/B0728HDH45)**.  These
+      are around $13 on Amazon, probably cheaper other places.  I went with 200
       RPM which is a bit more than 3 rotations/second at 12V.  This seemed about
       right.
-   2. **A [Flange Coupling Connector](https://smile.amazon.com/gp/product/B07PDYV4P3)**. 
-      This is needed to adapt the motor's shaft to the lightbulb removal tool.
-   3. **A microcontroller**. I went with the [ATTiny85](https://www.sparkfun.com/products/9378)
-      The hardest thing about this project might be loading firmware on it if you
-      have not done so before.  But it's well-documented on the internet and once
-      you get it working once, it will be turn-key after that.
-   4. **A [L293D](https://www.adafruit.com/product/807) H-bridge motor driver**.
+   2. **[Flange Coupling Connector](https://smile.amazon.com/gp/product/B07PDYV4P3)**. 
+      This is needed to adapt the motor's shaft to the _Light Bulb Changer_.
+   3. **Microcontroller**. I went with the [ATTiny85](https://www.sparkfun.com/products/9378)
+      Loading firmware on it can be tricky if you have not done so before.  But there are
+      dozens of video and written guides on the internet on how to do it.  Once you
+      get it working the first time, it will be turn key after that.
+   4. **[L293D](https://www.adafruit.com/product/807) H-bridge motor driver**.
       This turns the puny waveforms the ATTiny85 can generate into power boosted
       energy waves that can drive a motor at variable speeds and in either forward
       or reverse.
-   5. **A broomstick** for mounting
+   5. **Broomstick** for mounting
    6. **[Enough wire](https://www.amazon.com/BNTECHGO-Flexible-Conductor-Resistant-Extension/dp/B077X9MVWG)**
       to reach all the way down the broomstick.
    7. **Zipties** to secure the control module to the broomstick.
    8. **[Sony PS2 thumbstick](https://www.amazon.com/HiLetgo-Controller-JoyStick-Breakout-Arduino/dp/B00P7QBGD2)**
-      which is basically a thumb-friendly potentiometer. Any
-      potentiometer that you can see yourself using as a control could also work.
+      which is basically a thumb-friendly potentiometer. Any 10k potentiometer will work,
+      so long as you can handle the ergonomics.
    9. **A power source**.  You'll need around 12V and enough current to keep the motor
       happy.  A [3S lipo battery](https://www.amazon.com/TATTU-Battery-650mAh-Torrent-Lizard/dp/B071GBGBB4)
-      (450-1800 mAh) fits this bill perfectly, but you'll
-      also need a special charger.  You can also stack 9 (or more) AA batteries in
-      series.  A DC wall wart could also work.
+      (450-1800 mAh) fits this bill perfectly, but you'll need a special charger if you don't already
+      have one.  You can also stack 9 (or more) AA batteries in series.  A 12V DC wall wart could also work.
    10. **Connectors for the power source**.  With a small 3S LIPO, I really like
        the [XT30 connector](https://www.amazon.com/10Pairs-Upgrade-Connector-Female-Battery/dp/B08P5HVMYT)
        and that is what the 3D printed case is designed to handle without
        "manual modifications"
    11. **PCB prototyping board** - Technically optional as there are so many way to construct a circuit.
-       But [30x70 perf board](https://www.amazon.com/ELEGOO-Prototype-Soldering-Compatible-Arduino/dp/B072Z7Y19F)
-       is my personal option for a good option here.
+       But a [30x70 perf board](https://www.amazon.com/ELEGOO-Prototype-Soldering-Compatible-Arduino/dp/B072Z7Y19F)
+       is my personal preference.
    12. **Status LED(s)**.  I went with a two-color LED which has red and green
        channels.  You can also go with two separate LEDs of any color you want with minimal changes.
    13. **Some current limiting resistors** for the LEDs.  Values are not critical -
-       something in the 470 to 2k range will work with lower values resulkting in
-       brighter LEDs.
+       something in the 470 to 2k range will work.
    14. **A 5V regulator**.  I went with the LP2950Z but [nearly anything](https://www.sparkfun.com/products/107)
        will work here. 
    15. **Some capacitors**.  The DC motor is a noisy load for the battery and the 5V
        regulator will see this noise on it's input.  Caps on each side of the
-       regulator will help keep the noise off the 5V electronics  I went with
+       regulator will help reduce this noise to the 5V electronics  I went with
        500+ uF on the input side and another 100 uF on the output side, which is
        likely overkill.
    16. **Connectors** for the PS2 thumbstick and motor wire.  I used standard 2.54mm pitch
@@ -104,17 +94,16 @@ you control the motor:
 
 ### Tools you'll need:
 
-   1. **A 3D printer** if you want print the motor housing and controller box. If you
-      don't have one you can come up with an alternate holder for the motor
-      (ziptie, etc)
+   1. **A 3D printer** if you want print the motor housing and controller box.  As
+      said above, you can also come up with a custom alternate solution.
    2. **A Breadboard** if you want to verify operation before committing the parts with
       solder.
 
 ## Step 2: Electronics Overview
 
 The ordering is not strict here but I like getting the electronics working
-first.  A breadboard is a  good way to wire things up and get the assurance
-that, as long as I wire it up competently, the final build will work.
+first.  A breadboard is a good way to wire things up and some confidence
+that the project is on the right track.
 
 Here is the schematic:
 
@@ -122,16 +111,16 @@ Here is the schematic:
 
 So how does this thing work?
 
-   * You move the potentiometer (PS2 thumbstick)
-   * The microcontroller notes the new potentiometer state (via `PB4`)  and uses
-     it to update the motor direction and speed. 
+   * You move the potentiometer (PS2 thumbstick, top of schematic)
+   * The ATTiny85 microcontroller notes the new potentiometer state (via `PB4`)
+     and uses it to update the motor direction and speed. 
    * The direction and speed are communicated via a PWM signal (via `PB0`) which
      tells the motor how fast to spin via the only language it understands: power.
      It also needs to send a bit (via PB1 and PB2) that tells the motor
-     controller whether to go left or right.
-   * The motor controller takes the weak PWM signal from the microcontroller and
+     controller which polatity to send to the motor.
+   * The L293D motor controller (right) takes the weak PWM signal from the microcontroller and
      puts the full force of the battery pack behind it (e.g. 12V and whatever
-     current the motor asks for - assuming it's not too much..)
+     current the motor asks for - within obvious limits..)
    * The bottom left of the circuit is just the 5V regulator and some supporting
      capacitors to filter out motor noise.
 
@@ -144,7 +133,7 @@ adapter and light.  Turning, problems being solved, happy time.
 
 The code is located in the `firmware/` directory.  This code is not Arduino so
 you will need to have/develop familiarity with `avr-gcc` to compile it.  But,
-you don't have to compile it because there is an already-compiled
+**you don't have to compile it** because there is an already-compiled
 `firmware/prebuilt/light_bulb_changer.hex` file ready to go.
 
 Loading code onto the ATTiny85 involves conforming to the protocol specified in
@@ -152,13 +141,6 @@ its
 [datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-2586-AVR-8-bit-Microcontroller-ATtiny25-ATtiny45-ATtiny85_Datasheet.pdf).
 There are several possible solutions and a large amount of websites and Youtube
 videos that cover the topic.
-
-   _Note: The microcontroller world has the concept of a "bootloader" where a
-   separate USB-serial converter chip feeds serial data to persistant firmware
-   on the microcontroller, which then programs the chip.  This bootloading
-   method is used with the Arduino Uno, Nano and many other "microcontroller
-   on a PCB".  We are not using this setup with the ATTiny85 and
-   are instead using the "low level" programming protocol._
 
 A sampling of options include:
 
@@ -171,8 +153,11 @@ a [test clip](https://www.amazon.com/Pomona-Electronics-5250-Plated-Spacing/dp/B
 
 ![Test Clip](images/test_clip.jpg)
 
-The guides I listed above assume that you want to use the Arduino framework to
-write code for the ATTiny85.  Maybe you do, but Arduino is not used here.
+The three guides I listed above assume that you want to use the Arduino framework to
+_write code_ for the ATTiny85.  Maybe you do, but Arduino can not compile the code here
+and you already have a compiled `light_bulb_changer.hex` file ready to upload so compiling
+it again is not needed.
+
 Still it's convenient to follow the steps because as a part of the exercise,
 you'll end up with a copy of the
 [avrdude](https://www.nongnu.org/avrdude/) code uploading tool as well as
@@ -205,7 +190,7 @@ breadboard.  We will wire up a simplified version of the schematic as shown:
 
 This follows the original schematic but with the motor enable (pin 1 of the
     L293D) replaced with a white LED and the potentiometer replaced with a
-resistor pulldown to ground.  Specifically:
+resistor to ground.  Specifically:
 
    * Pin 1 (Reset) Not Connected
    * Pin 2 (Pot input) -> Resistor -> Ground
@@ -217,8 +202,7 @@ resistor pulldown to ground.  Specifically:
    * Pin 8 (5V) -> Some voltage between 2V-5.5V
 
 What resistor values?  Anything in the 400-5K range is fine for the LEDs.
-Anything at all is fine for Pin 2.  And use any colors you want for the
-LEDs.
+Anything at all is fine for Pin 2.
 
 What we should see is the green and white LEDs lit up.  The firmware thinks that
 the motor is in full-power forward mode because we have Pin 2 grounded.
@@ -227,7 +211,7 @@ Now lets, make one change.  Instead of grounding Pin 2, connect it to power:
 
 ![Simplified VCC Breadboard](images/simplified_vcc.jpg)
 
-Now the firmware thinks it need to drive the motor full power in reverse.
+Now the ATTiny85 thinks it need to drive the motor full power in reverse.
 
 You could call the testing "done" at this point, but I'm going to take it a
 little further for educational purposes.  Here I connected a real potentiometer
@@ -268,24 +252,24 @@ Actual built-up part:
 
 ![Board Top](images/wiring_top.jpg)
 
-Of course, you can build the board any way you want.  Just keep in mind that if
-you choose to use the 3D printed control box it is sized to house a
-PCB that is 30mm x 51mm.  This size could (technically) be changed in the
-`3d_print/motor_controller_pcb.scad` file by someone who is willing to do some
-OpenSCAD work.  For everyone else, I suggest keeping that size limit in mind.
+Of course, you can build the board any way you want.  Just keep in mind that
+the 3D printed control box is sized to house a PCB that is 30mm x 51mm.  This
+size could (technically) be changed in the `3d_print/motor_controller_pcb.scad`
+file by someone who is willing to do some OpenSCAD work.
  
 ## Step 5: 3D Print Control Box and Motor Carriage
 
-Let's assume for this step that you are going to print these parts.
+There are two directories of interest.  
 
-There are two directories of interest.  One is the `openscad/` directory.  If
-you just want the parts, you can ignore this directory.  If you want to
+The one named `stl/` contains already-rendered parts.
+
+The other one is named `openscad/`.  If
+you just want the parts, _you can ignore this directory_.  If you want to
 customize the parts, you'll need the (free) OpenSCAD software.  The main
 files of interest are `openscad/control_box_assembly.scad` and
 `openscad/motor_assembly.scad`.  Scroll to the bottom of each file
 and note the comments.
 
-There is also an `stl/` directory that contains already-rendered parts.
 Here is a inventory of each part:
 
 Starting with the control box, we have a threaded interface to the light
@@ -347,9 +331,5 @@ Here are some images to show how the motor assembly is supposed to work:
 ![Motor Assembly On Pole](images/motor_assembly_on_pole.jpg)
 
 Note that if the motor is spinning the wrong way, you can just reverse the
-motor connection at the control box (NOT the battery connection).  The motor
-itself has no required polarity and swapping the polarity is how the motor
-controller chip changes the turning direction.
-
-
+motor connection at the control box (NOT the battery connection).
 
