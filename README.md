@@ -32,6 +32,8 @@ If you don't have a 3D printer, hope is not lost.  You can always use a project
 box, parts from the hardware store and plenty of zip ties to get things done old
 school.
 
+I also made a [video describing the project](https://youtu.be/A-EdzPTZSjM).
+
 ## Step 1: Parts
 
 Here is what we are building:
@@ -77,7 +79,7 @@ you control the motor:
       (450-1800 mAh) fits this bill perfectly, but you'll
       also need a special charger.  You can also stack 9 (or more) AA batteries in
       series.  A DC wall wart could also work.
-   10. **Connectors for the power source**.  With a small 3S lipo, I really like
+   10. **Connectors for the power source**.  With a small 3S LIPO, I really like
        the [XT30 connector](https://www.amazon.com/10Pairs-Upgrade-Connector-Female-Battery/dp/B08P5HVMYT)
        and that is what the 3D printed case is designed to handle without
        "manual modifications"
@@ -96,7 +98,7 @@ you control the motor:
        regulator will help keep the noise off the 5V electronics  I went with
        500+ uF on the input side and another 100 uF on the output side, which is
        likely overkill.
-   16. **Connectors** for the PS2 thumstick and motor wire.  I used standard 2.54mm pitch
+   16. **Connectors** for the PS2 thumbstick and motor wire.  I used standard 2.54mm pitch
        headers.  Anything you have could work.
 
 
@@ -120,10 +122,10 @@ Here is the schematic:
 
 So how does this thing work?
 
-   * You move the potentiometer (PS2 thumstick)
-   * The microcontroller notes the new potentiometer state (via PB4)  and uses
+   * You move the potentiometer (PS2 thumbstick)
+   * The microcontroller notes the new potentiometer state (via `PB4`)  and uses
      it to update the motor direction and speed. 
-   * The direction and speed are communicated via a PWM signal (via PB0) which
+   * The direction and speed are communicated via a PWM signal (via `PB0`) which
      tells the motor how fast to spin via the only language it understands: power.
      It also needs to send a bit (via PB1 and PB2) that tells the motor
      controller whether to go left or right.
@@ -145,10 +147,10 @@ you will need to have/develop familiarity with `avr-gcc` to compile it.  But,
 you don't have to compile it because there is an already-compiled
 `firmware/prebuilt/light_bulb_changer.hex` file ready to go.
 
-Loading code onto the ATTiny85 involves conforming to the protocol speficied in
+Loading code onto the ATTiny85 involves conforming to the protocol specified in
 its
 [datasheet](https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-2586-AVR-8-bit-Microcontroller-ATtiny25-ATtiny45-ATtiny85_Datasheet.pdf).
-There are several possible soltions and a large amount of websites and youtube
+There are several possible solutions and a large amount of websites and Youtube
 videos that cover the topic.
 
    _Note: The microcontroller world has the concept of a "bootloader" where a
@@ -161,22 +163,23 @@ videos that cover the topic.
 A sampling of options include:
 
    1. The official AVR programming tools
-   2. [Using an arduino Uno (or nano) *as a programmer*](https://create.arduino.cc/projecthub/arjun/programming-attiny85-with-arduino-uno-afb829)
-   3. [Using the sparkfun ATTiny85 programmer](https://learn.sparkfun.com/tutorials/tiny-avr-programmer-hookup-guide/all)
+   2. [Using an Arduino Uno (or nano) *as a programmer*](https://create.arduino.cc/projecthub/arjun/programming-attiny85-with-arduino-uno-afb829)
+   3. [Using the Sparkfun ATTiny85 programmer](https://learn.sparkfun.com/tutorials/tiny-avr-programmer-hookup-guide/all)
 
-I personally went with a variation of option #2, using an arduino Nano and a [test clip](https://www.amazon.com/Pomona-Electronics-5250-Plated-Spacing/dp/B00JJ4G13I):
+I personally went with a variation of option #2, using an Arduino Nano and
+a [test clip](https://www.amazon.com/Pomona-Electronics-5250-Plated-Spacing/dp/B00JJ4G13I):
 
 ![Test Clip](images/test_clip.jpg)
 
-The guides I listed above assume that you want to use the Arduino framewark to
+The guides I listed above assume that you want to use the Arduino framework to
 write code for the ATTiny85.  Maybe you do, but Arduino is not used here.
-Still it's convienent to follow the steps because as a part of the exercise,
+Still it's convenient to follow the steps because as a part of the exercise,
 you'll end up with a copy of the
 [avrdude](https://www.nongnu.org/avrdude/) code uploading tool as well as
 examples of how to use it.
 
 When you run the "blinking light" example of one of the guides above, the
-arduino console will output the avrdude command it used.  This can be compared
+Arduino console will output the `avrdude` command it used.  This can be compared
 to the one I used (which is also in `firmware/prebuilt/README`):
 
     # in the firmware/prebuilt directory:
@@ -195,10 +198,10 @@ are using, some flags will be different and you'll want to combine the
 flags from the blinking light example with the `-Uflash:w:light_bulb_changer.hex:i`
 option above.
 
-Ok, now that we are through all of that, I suggest a simple verification on the
+OK, now that we are through all of that, I suggest a simple verification on the
 breadboard.  We will wire up a simplified version of the schematic as shown:
 
-![Simplfied Grounded Breadboard](images/simplified_grounded.jpg)
+![Simplified Grounded Breadboard](images/simplified_grounded.jpg)
 
 This follows the original schematic but with the motor enable (pin 1 of the
     L293D) replaced with a white LED and the potentiometer replaced with a
@@ -207,8 +210,8 @@ resistor pulldown to ground.  Specifically:
    * Pin 1 (Reset) Not Connected
    * Pin 2 (Pot input) -> Resistor -> Ground
    * Pin 3 Not Connected
-   * Pin 4 (GND) -> Ground
-   * Pin 5 (PWM) -> Resistor -> White LED -> Ground
+   * Pin 4 (`GND`) -> Ground
+   * Pin 5 (`PWM`) -> Resistor -> White LED -> Ground
    * Pin 6 (Forward) -> Resistor -> Greed LED -> Ground
    * Pin 7 (Reverse) -> Resistor -> Red LED -> Ground
    * Pin 8 (5V) -> Some voltage between 2V-5.5V
@@ -217,39 +220,39 @@ What resistor values?  Anything in the 400-5K range is fine for the LEDs.
 Anything at all is fine for Pin 2.  And use any colors you want for the
 LEDs.
 
-What we should see is the green and white LEDs lit up.  The firmare thinks that
+What we should see is the green and white LEDs lit up.  The firmware thinks that
 the motor is in full-power forward mode because we have Pin 2 grounded.
 
 Now lets, make one change.  Instead of grounding Pin 2, connect it to power:
 
-![Simplfied VCC Breadboard](images/simplified_vcc.jpg)
+![Simplified VCC Breadboard](images/simplified_vcc.jpg)
 
 Now the firmware thinks it need to drive the motor full power in reverse.
 
 You could call the testing "done" at this point, but I'm going to take it a
 little further for educational purposes.  Here I connected a real potentiometer
-to pin 2 (I didn't go with the PS2 thumstick just yet because I wanted to
+to pin 2 (I didn't go with the PS2 thumbstick just yet because I wanted to
     potentiometer to stay at a certain value for the test).  I also added
-an oscilliscope probe to pin 5:
+an oscilloscope probe to pin 5:
 
 ![Breadboard with Potentiometer](images/breadboard_with_pot.jpg)
 
 Now the potentiometer can be used to change between forward and reverse, just
 like the final product.  It's also possible to see the white LED getting
-darker and brighter but this is more obvious from the oscilliscope.  Here
+darker and brighter but this is more obvious from the oscilloscope.  Here
 is a scope image at "low power", where the motor will turn more slowly.  Note
 how the signal spends most of it's time at 0V:
 
-![Oscilliscope Low Power](images/oscilliscope_low_power.jpg)
+![Oscilloscope Low Power](images/oscilliscope_low_power.jpg)
 
 Here, the potentiometer is turned further to the left (or right since there
 is both a forward and reverse).  More time at 5V means more motor speed:
 
-![Oscilliscope Low Power](images/oscilliscope_high_power.jpg)
+![Oscilloscope Low Power](images/oscilliscope_high_power.jpg)
 
 and finally, the highest power setting shows the signal at 5V the whole time:
 
-![Oscilliscope Low Power](images/oscilliscope_full_power.jpg)
+![Oscilloscope Low Power](images/oscilliscope_full_power.jpg)
 
 ## Step 4: Building the PCB
 
@@ -267,7 +270,7 @@ Actual built-up part:
 
 Of course, you can build the board any way you want.  Just keep in mind that if
 you choose to use the 3D printed control box it is sized to house a
-PCB that is 30mm x 51mm.  This size could (techincally) be changed in the
+PCB that is 30mm x 51mm.  This size could (technically) be changed in the
 `3d_print/motor_controller_pcb.scad` file by someone who is willing to do some
 OpenSCAD work.  For everyone else, I suggest keeping that size limit in mind.
  
@@ -275,9 +278,9 @@ OpenSCAD work.  For everyone else, I suggest keeping that size limit in mind.
 
 Let's assume for this step that you are going to print these parts.
 
-There are two diretories of interest.  One is the `openscad/` directory.  If
+There are two directories of interest.  One is the `openscad/` directory.  If
 you just want the parts, you can ignore this directory.  If you want to
-customize the parts, you'll need the (free) openscad software.  The main
+customize the parts, you'll need the (free) OpenSCAD software.  The main
 files of interest are `openscad/control_box_assembly.scad` and
 `openscad/motor_assembly.scad`.  Scroll to the bottom of each file
 and note the comments.
@@ -302,7 +305,7 @@ And finally an interface between the motor carriage and pole (`pole_interface.st
 
 ![Pole Interface](images/pole_interface.png)
 
-Onto the control box.  This consists ot three components held together by 16mm
+Onto the control box.  This consists of three components held together by 16mm
 M3 bolts.  First the pole interface, which is intended to be held on with
 zip ties:
 
@@ -345,8 +348,8 @@ Here are some images to show how the motor assembly is supposed to work:
 
 Note that if the motor is spinning the wrong way, you can just reverse the
 motor connection at the control box (NOT the battery connection).  The motor
-itself has no required polarity and swapping the polarity is how the
-the motor controller chip changes the turning direction.
+itself has no required polarity and swapping the polarity is how the motor
+controller chip changes the turning direction.
 
 
 
