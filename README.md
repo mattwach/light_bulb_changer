@@ -49,52 +49,54 @@ you control the motor:
 
 ![Control Box](images/control_box.jpg)
 
-### Parts you'll need include:
+### Parts I used include:
 
    1. **A [geared brushed motor](https://www.amazon.com/gp/product/B0728HDH45)**.  These
       are around $6 on Amazon, probably cheaper other places.  I went with 200
       RPM which is a bit more than 3 rotations/second at 12V.  This seemed about
       right.
-   2. **A microcontroller**. I went with the [ATTiny85](https://www.sparkfun.com/products/9378)
+   2. **A [Flange Coupling Connector](https://smile.amazon.com/gp/product/B07PDYV4P3)**. 
+      This is needed to adapt the motor's shaft to the lightbulb removal tool.
+   3. **A microcontroller**. I went with the [ATTiny85](https://www.sparkfun.com/products/9378)
       The hardest thing about this project might be loading firmware on it if you
       have not done so before.  But it's well-documented on the internet and once
       you get it working once, it will be turn-key after that.
-   3. **A [L293D](https://www.adafruit.com/product/807) H-bridge motor driver**.
+   4. **A [L293D](https://www.adafruit.com/product/807) H-bridge motor driver**.
       This turns the puny waveforms the ATTiny85 can generate into power boosted
       energy waves that can drive a motor at variable speeds and in either forward
       or reverse.
-   4. **A broomstick** for mounting
-   5. **[Enough wire](https://www.amazon.com/BNTECHGO-Flexible-Conductor-Resistant-Extension/dp/B077X9MVWG)**
+   5. **A broomstick** for mounting
+   6. **[Enough wire](https://www.amazon.com/BNTECHGO-Flexible-Conductor-Resistant-Extension/dp/B077X9MVWG)**
       to reach all the way down the broomstick.
-   6. **Zipties** to secure the control module to the broomstick.
-   7. **[Sony PS2 thumbstick](https://www.amazon.com/HiLetgo-Controller-JoyStick-Breakout-Arduino/dp/B00P7QBGD2)**
+   7. **Zipties** to secure the control module to the broomstick.
+   8. **[Sony PS2 thumbstick](https://www.amazon.com/HiLetgo-Controller-JoyStick-Breakout-Arduino/dp/B00P7QBGD2)**
       which is basically a thumb-friendly potentiometer. Any
       potentiometer that you can see yourself using as a control could also work.
-   8. **A power source**.  You'll need around 12V and enough current to keep the motor
+   9. **A power source**.  You'll need around 12V and enough current to keep the motor
       happy.  A [3S lipo battery](https://www.amazon.com/TATTU-Battery-650mAh-Torrent-Lizard/dp/B071GBGBB4)
       (450-1800 mAh) fits this bill perfectly, but you'll
       also need a special charger.  You can also stack 9 (or more) AA batteries in
       series.  A DC wall wart could also work.
-   9. **Connectors for the power source**.  With a small 3S lipo, I really like
-      the [XT30 connector](https://www.amazon.com/10Pairs-Upgrade-Connector-Female-Battery/dp/B08P5HVMYT)
-      and that is what the 3D printed case is designed to handle without
-      "manual modifications"
-   10. **PCB prototyping board** - Technically optional as there are so many way to construct a circuit.
+   10. **Connectors for the power source**.  With a small 3S lipo, I really like
+       the [XT30 connector](https://www.amazon.com/10Pairs-Upgrade-Connector-Female-Battery/dp/B08P5HVMYT)
+       and that is what the 3D printed case is designed to handle without
+       "manual modifications"
+   11. **PCB prototyping board** - Technically optional as there are so many way to construct a circuit.
        But [30x70 perf board](https://www.amazon.com/ELEGOO-Prototype-Soldering-Compatible-Arduino/dp/B072Z7Y19F)
        is my personal option for a good option here.
-   11. **Status LED(s)**.  I went with a two-color LED which has red and green
+   12. **Status LED(s)**.  I went with a two-color LED which has red and green
        channels.  You can also go with two separate LEDs of any color you want with minimal changes.
-   12. **Some current limiting resistors** for the LEDs.  Values are not critical -
+   13. **Some current limiting resistors** for the LEDs.  Values are not critical -
        something in the 470 to 2k range will work with lower values resulkting in
        brighter LEDs.
-   13. **A 5V regulator**.  I went with the LP2950Z but [nearly anything](https://www.sparkfun.com/products/107)
+   14. **A 5V regulator**.  I went with the LP2950Z but [nearly anything](https://www.sparkfun.com/products/107)
        will work here. 
-   14. **Some capacitors**.  The DC motor is a noisy load for the battery and the 5V
+   15. **Some capacitors**.  The DC motor is a noisy load for the battery and the 5V
        regulator will see this noise on it's input.  Caps on each side of the
        regulator will help keep the noise off the 5V electronics  I went with
        500+ uF on the input side and another 100 uF on the output side, which is
        likely overkill.
-   15. **Connectors** for the PS2 thumstick and motor wire.  I used standard 2.54mm pitch
+   16. **Connectors** for the PS2 thumstick and motor wire.  I used standard 2.54mm pitch
        headers.  Anything you have could work.
 
 
@@ -317,3 +319,34 @@ And finally the top cover:
 Here is everything assembled:
 
 ![All Parts](images/all_parts.png)
+
+## Step 6: Final Assembly
+
+Here is an rendered and actual image of the control box assembly.  Refer to the
+previous steps for more details on the electrical connections.
+
+![Control Assembly Rendered](images/control_assembly_rendered.png)
+
+![Control Assembly Photo](images/control_assembly_photo.jpg)
+
+![Control Assembly Side](images/control_assembly_side.jpg)
+
+![Control Assembly On Pole](images/control_assembly_on_pole.jpg)
+
+Here are some images to show how the motor assembly is supposed to work:
+
+![Motor](images/motor.jpg)
+
+![Motor Assembly Top](images/motor_assembly_top.jpg)
+
+![Motor Assembly Side](images/motor_assembly_side.jpg)
+
+![Motor Assembly On Pole](images/motor_assembly_on_pole.jpg)
+
+Note that if the motor is spinning the wrong way, you can just reverse the
+motor connection at the control box (NOT the battery connection).  The motor
+itself has no required polarity and swapping the polarity is how the
+the motor controller chip changes the turning direction.
+
+
+
