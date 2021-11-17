@@ -1,5 +1,7 @@
 # Light Bulb Changer
 
+_Note: I also made a [video describing the project](https://youtu.be/A-EdzPTZSjM)._
+
 Do you have hard-to-reach light bulbs?  If so, then you are perhaps familiar
 with this device:
 
@@ -31,8 +33,6 @@ only limits.
 If you don't have a 3D printer, hope is not lost.  You can always use a project
 box, parts from the hardware store and plenty of zip ties to get things done old
 school.
-
-I also made a [video describing the project](https://youtu.be/A-EdzPTZSjM).
 
 ## Step 1: Parts
 
