@@ -2,15 +2,14 @@
 
 _Note: I also made a [video describing the project](https://youtu.be/A-EdzPTZSjM)._
 
-Do you have hard-to-reach light bulbs?  If so, then you are perhaps familiar
-with this device known as a _Light Bulb Changer_:
-
 ![Light bulb changer](images/light_bulb_changer.jpg)
 
-It threads on the end of a pole and extends your reach.  A problem is one of
-mechanics.  If you can't get your pole square to the bulb, the effectiveness of
-the holder decreases rapidly.  Imagine trying to use this thing at a 90 degree
-angle to the bulb.  That is the exact situation I found myself in: 
+Do you have hard-to-reach light bulbs?  If so, then you are perhaps familiar a
+_Light Bulb Changer_.  It threads on the end of a pole and extends your reach. 
+A problem is one of mechanics.  If you can't get your pole square to the bulb,
+the effectiveness of the holder decreases rapidly.  Imagine trying to use
+this thing at a 90 degree angle to the bulb.  That is the exact situation I
+found myself in: 
 
 ![The Problem](images/problem.jpg)
 
@@ -109,6 +108,9 @@ Here is the schematic:
 
 ![Schematic](images/schematic.png)
 
+You do not need to starting wiring up the breadboard yet, as upcoming steps
+will break that down into smaller steps
+
 So how does this thing work?
 
    * You move the potentiometer (PS2 thumbstick, top of schematic)
@@ -116,8 +118,8 @@ So how does this thing work?
      and uses it to update the motor direction and speed. 
    * The direction and speed are communicated via a PWM signal (via `PB0`) which
      tells the motor how fast to spin via the only language it understands: power.
-     It also needs to send a bit (via PB1 and PB2) that tells the motor
-     controller which polatity to send to the motor.
+     The microcontroller also sends a signal (via PB1 and PB2) that tells the motor
+     controller which polarity to send to the motor.
    * The L293D motor controller (right) takes the weak PWM signal from the microcontroller and
      puts the full force of the battery pack behind it (e.g. 12V and whatever
      current the motor asks for - within obvious limits..)
@@ -272,7 +274,7 @@ and note the comments.
 
 Here is a inventory of each part:
 
-Starting with the control box, we have a threaded interface to the light
+Starting with the motor box, we have a threaded interface to the light
 bulb removal tool (`threaded_attachment.stl`):
 
 ![Threaded Attachment](images/threaded_attachment.png)
@@ -291,15 +293,15 @@ And finally an interface between the motor carriage and pole (`pole_interface.st
 
 Onto the control box.  This consists of three components held together by 16mm
 M3 bolts.  First the pole interface, which is intended to be held on with
-zip ties:
+zip ties (`control_box_interface.stl`):
 
 ![Control Box Pole Interface](images/control_box_pole_interface.png)
 
-Next, the middle section, which holds all of the electronics:
+Next, the middle section, which holds all of the electronics (`control_box_bottom.stl`):
 
 ![Control Box Pole Interface](images/control_box_bottom.png)
 
-And finally the top cover:
+And finally the top cover (`control_box_top.stl`):
 
 ![Control Box Top](images/control_box_top.png)
 
